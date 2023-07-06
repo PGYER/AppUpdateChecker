@@ -197,6 +197,7 @@ public final class UpdateChecker {
                         int responseCode = connection.getResponseCode();
                         if (responseCode == 200) {
                             String response = readResponse(connection);
+                            response = unicodeDecode(response);
                             callback.response(response);
                         } else {
                             callback.error("Status Code " + responseCode);
@@ -248,6 +249,17 @@ public final class UpdateChecker {
                 e.printStackTrace();
             }
             return "";
+        }
+
+        private static String unicodeDecode(String string) {
+            Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
+            Matcher matcher = pattern.matcher(string);
+            char ch;
+            while (matcher.find()) {
+                ch = (char) Integer.parseInt(matcher.group(2), 16);
+                string = string.replace(matcher.group(1), ch + "");
+            }
+            return string;
         }
 
         public interface Callback {
