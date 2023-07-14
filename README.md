@@ -19,6 +19,8 @@
 - Android 项目调用示例 (Java)
 
 ```java
+import <code_path>.UpdateChecker;
+...
 new UpdateChecker("<API_KEY>")
   .check(
     "<APP_KEY>",
@@ -57,9 +59,11 @@ UpdateChecker(_api_key: "<API_KEY>")
   )
 ```
 
-- uni-app 项目调用示例 (Js)
+- uni-app 项目调用示例 (JS)
 
 ```js
+import UpdateChecker from '<code_path>/UpdateChecker.js';
+...
 new UpdateChecker("<API_KEY>")
   .check(
     "<APP_KEY>",
