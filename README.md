@@ -1,6 +1,6 @@
 # AppUpdateChecker
 
-本仓库包含了 `PGYER` (蒲公英) 检查更新功能的代码片段，适用 `Android App` 和 `iOS App`。
+本仓库包含了 `PGYER` (蒲公英) 检查更新功能的代码片段，适用 `Android App` 、 `iOS App` 和 `uni-app`。
 
 通过使用相应的代码片段, 可以在目标 `App` 中快速集成 `PGYER` (蒲公英) 检查更新功能。
 
@@ -13,7 +13,7 @@
 
 ### 使用方式
 
-1. 根据项目类型拷贝 `iOS` / `Android` 目录下的文件 (目录内只有一个文件) 到项目相应位置。
+1. 根据项目类型拷贝 `iOS` / `Android` / `uni-app` 目录下的文件 (目录内只有一个文件) 到项目相应位置。
 1. 按照下方代码示例在业务层面需要调用检查更新的地方添加调用代码即可。
 
 - Android 项目调用示例 (Java)
@@ -34,7 +34,7 @@ new UpdateChecker("<API_KEY>")
       public void error(String message) {
       }
     }
-);
+  );
 ```
 
 > Android 代码调用时, 如果无需传递可选参数，用 null 代替即可。
@@ -55,6 +55,22 @@ UpdateChecker(_api_key: "<API_KEY>")
         print(error)
     }
   )
+```
+
+- uni-app 项目调用示例 (Js)
+
+```js
+new UpdateChecker("<API_KEY>")
+  .check(
+    "<APP_KEY>",
+    "<(可选)APP版本号>",
+    "<(可选)使用蒲公英生成的自增 Build 版本号>",
+    "<(可选)渠道 KEY>",
+    updateInfo => {
+    },
+    error => {
+    },
+  );
 ```
 
 ### 注意事项
