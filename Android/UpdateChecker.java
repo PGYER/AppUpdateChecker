@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * @date 2023-06-06
  */
 public final class UpdateChecker {
-    public static final String APP_CHECK = "https://www.pgyer.com/apiv2/app/check";
+    public static final String APP_CHECK = "https://api.pgyer.com/apiv2/app/check";
     public String _api_key = "";
 
     /**

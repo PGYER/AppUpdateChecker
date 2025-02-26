@@ -1,5 +1,5 @@
 function UpdateChecker(apiKey) {
-    const APP_CHECK_URL = 'https://www.pgyer.com/apiv2/app/check';
+    const APP_CHECK_URL = 'https://api.pgyer.com/apiv2/app/check';
     this.apiKey = apiKey;
     this.check = function (appKey, buildVersion, buildBuildVersion, channelKey, success, error) {
         uni.request({
