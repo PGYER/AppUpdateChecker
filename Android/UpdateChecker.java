@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,14 @@ import java.util.regex.Pattern;
  * @date 2023-06-06
  */
 public final class UpdateChecker {
-    public static final String APP_CHECK = "https://api.pgyer.com/apiv2/app/check";
+    public static int PGYER_API_HOST_INDEX = 0;
+    public static final List<String> PGYER_API_HOSTS = Arrays.asList(
+            "https://api.pgyer.com/",
+            "https://xcxwo.com/",
+            "https://pgyerapp.com/",
+            "https://appsfore.com/"
+            );
+    public static final String APP_CHECK_PATH = "apiv2/app/check";
     public String _api_key = "";
 
     /**
@@ -48,7 +56,8 @@ public final class UpdateChecker {
         data.put("buildBuildVersion", buildBuildVersion == null ? "" : (buildBuildVersion + ""));
         data.put("channelKey", channelKey == null ? "" : channelKey);
 
-        Http.post(APP_CHECK, data, new Http.Callback() {
+        String apiEndpoint = PGYER_API_HOSTS.get(PGYER_API_HOST_INDEX).concat(APP_CHECK_PATH);
+        Http.post(apiEndpoint, data, new Http.Callback() {
             @Override
             public Boolean response(String response) {
                 Map<String, String> dataMap = parseResponse(response);
@@ -79,6 +88,11 @@ public final class UpdateChecker {
 
             @Override
             public void error(String message) {
+                if (PGYER_API_HOST_INDEX < PGYER_API_HOSTS.size() - 1) {
+                    PGYER_API_HOST_INDEX++;
+                    check(appKey, buildVersion, buildBuildVersion, channelKey, callback);
+                    return;
+                }
                 callback.error(message);
             }
         });
