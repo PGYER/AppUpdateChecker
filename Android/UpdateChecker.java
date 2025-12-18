@@ -23,9 +23,9 @@ public final class UpdateChecker {
     public static int PGYER_API_HOST_INDEX = 0;
     public static final List<String> PGYER_API_HOSTS = Arrays.asList(
             "https://api.pgyer.com/",
-            "https://xcxwo.com/",
-            "https://pgyerapp.com/",
-            "https://appsfore.com/"
+            "https://www.xcxwo.com/",
+            "https://www.pgyerapp.com/"
+            // "https://www.appsfore.com/"
             );
     public static final String APP_CHECK_PATH = "apiv2/app/check";
     public String _api_key = "";
