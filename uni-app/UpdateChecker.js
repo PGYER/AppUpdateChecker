@@ -1,9 +1,17 @@
 function UpdateChecker(apiKey) {
-    const APP_CHECK_URL = 'https://api.pgyer.com/apiv2/app/check';
+    const API_HOSTS = [
+        "https://api.pgyer.com/",
+        "https://xcxwo.com/",
+        "https://pgyerapp.com/",
+        "https://appsfore.com/"
+    ];
+    const APP_CHECK_PATH = 'apiv2/app/check';
+    let API_HOST_INDEX = 0;
     this.apiKey = apiKey;
     this.check = function (appKey, buildVersion, buildBuildVersion, channelKey, success, error) {
+        const apiEndpoint = API_HOSTS[API_HOST_INDEX].concat(APP_CHECK_PATH);
         uni.request({
-            url: APP_CHECK_URL,
+            url: apiEndpoint,
             method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
@@ -38,6 +46,11 @@ function UpdateChecker(apiKey) {
                 success(result.data);
             },
             fail: result => {
+                if (API_HOST_INDEX < API_HOSTS.length - 1) {
+                    API_HOST_INDEX++;
+                    this.check(appKey, buildVersion, buildBuildVersion, channelKey, success, error);
+                    return;
+                }
                 error('network error');
             },
         });
