@@ -1,9 +1,9 @@
 function UpdateChecker(apiKey) {
     const API_HOSTS = [
         "https://api.pgyer.com/",
-        "https://xcxwo.com/",
-        "https://pgyerapp.com/",
-        "https://appsfore.com/"
+        "https://www.xcxwo.com/",
+        "https://www.pgyerapp.com/"
+        // "https://appsfore.com/"
     ];
     const APP_CHECK_PATH = 'apiv2/app/check';
     let API_HOST_INDEX = 0;
