@@ -24,9 +24,9 @@ import <code_path>.UpdateChecker;
 new UpdateChecker("<API_KEY>")
   .check(
     "<APP_KEY>",
-    "<(可选)APP版本号>",
-    <(可选)(Integer)使用蒲公英生成的自增 Build 版本号>,
-    "<(可选)渠道 KEY>",
+    String.valueOf(BuildConfig.VERSION_CODE),
+    null, // 未使用蒲公英生成的自增 Build 号
+    null, // 未指定渠道
     new UpdateChecker.Callback() {
       @Override
       public void result(UpdateChecker.UpdateInfo updateInfo) {
@@ -40,6 +40,19 @@ new UpdateChecker("<API_KEY>")
 ```
 
 > Android 代码调用时, 如果无需传递可选参数，用 null 代替即可。
+
+Android 的第二个参数 `buildVersion` 推荐传入**当前已安装 App** 的 `versionCode`，如上例的 `String.valueOf(BuildConfig.VERSION_CODE)`。请使用应用模块的 `BuildConfig`。
+
+接口对纯数字字符串按 `versionCode` 比较；对 `1.2.3` 这类非纯数字字符串兼容按 `versionName` 比较。如果版本名称不变、只增加 `versionCode`，仅按名称比较无法识别更新。纯数字的 `versionName`（如 `"123"`）也会被当作 `versionCode`，因此推荐统一传 `versionCode`。
+
+请求参数与响应字段的含义不同：
+
+| 字段 | Android 中的含义 |
+| ---- | ---- |
+| 请求 `buildVersion` | 推荐传当前已安装 App 的 `versionCode` 字符串 |
+| 响应 `buildVersion` | 服务端返回版本的 `versionName` |
+| 响应 `buildVersionNo` | 服务端返回版本的 `versionCode` |
+| `buildBuildVersion` | 蒲公英生成的自增 Build 号，不是 Android `versionCode`；请求时填写当前已安装版本对应的值，未使用时传 `null` |
 
 - iOS 项目调用示例 (Swift)
 

@@ -42,8 +42,11 @@ public final class UpdateChecker {
      * @see <a href="https://www.pgyer.com/doc/view/api#appUpdate">https://www.pgyer.com/doc/view/api#appUpdate</a>
      *
      * @param appKey appKey
-     * @param buildVersion (选填)使用 App 本身的 Build 版本号，Android 对应字段为 versionname, iOS 对应字段为 version
-     * @param buildBuildVersion (选填)使用蒲公英生成的自增 Build 版本号
+     * @param buildVersion (选填)当前已安装 App 的 versionCode，推荐传 String.valueOf(BuildConfig.VERSION_CODE)。
+     *                     纯数字字符串按 versionCode 比较；非纯数字字符串（如 1.2.3）兼容按 versionName 比较，
+     *                     但版本名称相同、仅增加 versionCode 时，按名称比较无法识别更新。
+     *                     响应中的同名字段 buildVersion 仍表示 versionName。
+     * @param buildBuildVersion (选填)当前已安装版本对应的蒲公英自增 Build 号，不是 Android versionCode；未使用时传 null
      * @param channelKey (选填)渠道KEY
      * @param callback 结果回调
      */
